@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :phoenix_core, PhoenixCore.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "Tesha2000",
   hostname: "localhost",
   database: "phoenix_core_dev",
   stacktrace: true,
@@ -19,7 +19,7 @@ config :phoenix_core, PhoenixCore.Repo,
 config :phoenix_core, PhoenixCoreWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+  http: [ip: {127, 0, 0, 1}, port: 1000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
