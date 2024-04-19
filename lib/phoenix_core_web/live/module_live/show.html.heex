@@ -1,0 +1,28 @@
+<.header>
+  Module <%= @module.id %>
+  <:subtitle>This is a module record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/tbl_modules/#{@module}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit module</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @module.name %></:item>
+  <:item title="Description"><%= @module.description %></:item>
+  <:item title="Url"><%= @module.url %></:item>
+</.list>
+
+<.back navigate={~p"/tbl_modules"}>Back to tbl_modules</.back>
+
+<.modal :if={@live_action == :edit} id="module-modal" show on_cancel={JS.patch(~p"/tbl_modules/#{@module}")}>
+  <.live_component
+    module={PhoenixCoreWeb.ModuleLive.FormComponent}
+    id={@module.id}
+    title={@page_title}
+    action={@live_action}
+    module={@module}
+    patch={~p"/tbl_modules/#{@module}"}
+  />
+</.modal>

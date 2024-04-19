@@ -19,6 +19,14 @@ defmodule PhoenixCoreWeb.Router do
 
     get "/", PageController, :home
     get "/modules", PageController, :modules
+    get "/landing/pages", PageController, :modules
+
+    live "/tbl_modules", ModuleLive.Index, :index
+    live "/tbl_modules/new", ModuleLive.Index, :new
+    live "/tbl_modules/:id/edit", ModuleLive.Index, :edit
+
+    live "/tbl_modules/:id", ModuleLive.Show, :show
+    live "/tbl_modules/:id/show/edit", ModuleLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

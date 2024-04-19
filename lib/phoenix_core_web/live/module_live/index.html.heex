@@ -1,0 +1,43 @@
+<.header>
+  Listing Tbl modules
+  <:actions>
+    <.link patch={~p"/tbl_modules/new"}>
+      <.button>New Module</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="tbl_modules"
+  rows={@streams.tbl_modules}
+  row_click={fn {_id, module} -> JS.navigate(~p"/tbl_modules/#{module}") end}
+>
+  <:col :let={{_id, module}} label="Name"><%= module.name %></:col>
+  <:col :let={{_id, module}} label="Description"><%= module.description %></:col>
+  <:col :let={{_id, module}} label="Url"><%= module.url %></:col>
+  <:action :let={{_id, module}}>
+    <div class="sr-only">
+      <.link navigate={~p"/tbl_modules/#{module}"}>Show</.link>
+    </div>
+    <.link patch={~p"/tbl_modules/#{module}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, module}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: module.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="module-modal" show on_cancel={JS.patch(~p"/tbl_modules")}>
+  <.live_component
+    module={PhoenixCoreWeb.ModuleLive.FormComponent}
+    id={@item.id || :new}
+    title={@page_title}
+    action={@live_action}
+    item={@item}
+    patch={~p"/tbl_modules"}
+  />
+</.modal>
