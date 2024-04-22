@@ -1,0 +1,46 @@
+<.header>
+  Listing Tbl form1
+  <:actions>
+    <.link patch={~p"/forms/form1/new"}>
+      <.button>New Form1</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="tbl_form1" rows={@streams.tbl_form1} row_click={fn {_id, form1} -> JS.navigate(~p"/forms/form1/#{form1}")
+  end}
+  >
+  <:col :let={{_id, form1}} label="Full name">
+    <%= form1.full_name %>
+  </:col>
+  <:col :let={{_id, form1}} label="Account number">
+    <%= form1.account_number %>
+  </:col>
+  <:col :let={{_id, form1}} label="Bank name">
+    <%= form1.bank_name %>
+  </:col>
+  <:col :let={{_id, form1}} label="Account type">
+    <%= form1.account_type %>
+  </:col>
+  <:col :let={{_id, form1}} label="Amount">
+    <%= form1.amount %>
+  </:col>
+  <:action :let={{_id, form1}}>
+    <div class="sr-only">
+      <.link navigate={~p"/forms/form1/#{form1}"}>Show</.link>
+    </div>
+    <.link patch={~p"/forms/form1/#{form1}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, form1}}>
+    <.link phx-click={JS.push("delete", value: %{id: form1.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+      >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="form1-modal" show on_cancel={JS.patch(~p"/forms/form1")}>
+  <.live_component module={PhoenixCoreWeb.Form1Live.FormComponent} id={@form1.id || :new} title={@page_title}
+    action={@live_action} form1={@form1} patch={~p"/forms/form1"} />
+</.modal>

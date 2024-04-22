@@ -27,8 +27,20 @@ defmodule PhoenixCoreWeb.Router do
 
     live "/tbl_modules/:id", ModuleLive.Show, :show
     live "/tbl_modules/:id/show/edit", ModuleLive.Show, :edit
+
   end
 
+  scope "/forms", PhoenixCoreWeb.Form1Live do
+    pipe_through :browser
+
+    live "/form1", Index, :index
+    live "/form1/new", Index, :new
+    live "/form1/:id/edit", Index, :edit
+
+    live "/form1/:id", Show, :show
+    live "/form1/:id/show/edit", Show, :edit
+    live "/wizard1", Wizard
+  end
   # Other scopes may use custom stacks.
   # scope "/api", PhoenixCoreWeb do
   #   pipe_through :api
